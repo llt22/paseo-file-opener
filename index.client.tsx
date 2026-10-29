@@ -1,13 +1,26 @@
 import type { PluginClientContext } from "@getpaseo/plugin/client";
-import { FileOpenerPanel } from "./client/file-opener";
-import { documentExtensions } from "./shared/files";
+import { Platform } from "react-native";
+import { mayContainDocumentLink } from "./client/document-link";
+import { FileMessage, fileMessageSchema } from "./client/file-message";
 
 export default function contribute(client: PluginClientContext) {
-  return client.addFilePanel({
-    id: "external-open",
-    title: "系统应用打开",
-    icon: "ExternalLink",
-    files: { extensions: documentExtensions },
-    Component: FileOpenerPanel,
+  if (Platform.OS !== "web") return () => {};
+  const removeRenderer = client.addTimelineRenderer({
+    kind: "file-message",
+    version: 1,
+    schema: fileMessageSchema,
+    Component: FileMessage,
   });
+  const removeTransformer = client.addTimelineTransformer({
+    id: "document-links",
+    query: { itemType: "assistant_message" },
+    transform({ item }) {
+      if (!mayContainDocumentLink(item.text)) return;
+      return { items: [{ type: "plugin", kind: "file-message", version: 1, data: { text: item.text } }] };
+    },
+  });
+  return () => {
+    removeTransformer();
+    removeRenderer();
+  };
 }
