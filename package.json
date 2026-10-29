@@ -29,5 +29,15 @@
     "react-native": "0.81.5",
     "typescript": "^5.9.3",
     "zod": "^4.4.3"
-  }
+  },
+  "description": "Open Paseo chat documents in a browser, WPS, or the default macOS app from one dialog.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llt22/paseo-file-opener.git"
+  },
+  "bugs": {
+    "url": "https://github.com/llt22/paseo-file-opener/issues"
+  },
+  "homepage": "https://github.com/llt22/paseo-file-opener#readme"
 }
