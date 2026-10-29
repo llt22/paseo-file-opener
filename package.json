@@ -1,0 +1,33 @@
+{
+  "name": "paseo-file-opener",
+  "type": "module",
+  "private": true,
+  "version": "0.1.0",
+  "files": [
+    "paseo-plugin.json",
+    "OVERVIEW.md",
+    "OVERVIEW.*.md",
+    "index.client.ts",
+    "index.client.tsx",
+    "index.server.ts",
+    "index.server.tsx",
+    "client/",
+    "server/",
+    "shared/"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "esbuild index.client.tsx --bundle --platform=browser --format=esm --packages=external --outfile=dist/index.client.js && esbuild index.server.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/index.server.js"
+  },
+  "devDependencies": {
+    "@getpaseo/plugin": "0.14.0",
+    "@tanstack/react-query": "^5.90.11",
+    "@types/node": "^24.19.2",
+    "@types/react": "~19.2.0",
+    "esbuild": "^0.28.2",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "typescript": "^5.9.3",
+    "zod": "^4.4.3"
+  }
+}
